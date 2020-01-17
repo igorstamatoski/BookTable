@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -49,6 +47,34 @@ namespace BookTable.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+
+        //
+        //AddToRole Action
+        [Authorize(Roles = "Admin")]
+        public ActionResult AddUserToRole()
+        {
+            var model = new AddToRoleModel();
+            model.roles.Add("Admin");
+            model.roles.Add("Restaurant");
+            model.roles.Add("User");
+            return View(model);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult AddUserToRole(AddToRoleModel model)
+        {
+            try
+            {
+                var user = UserManager.FindByEmail(model.Email);
+                UserManager.AddToRole(user.Id, model.Role);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return HttpNotFound();
             }
         }
 

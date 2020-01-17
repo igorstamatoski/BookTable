@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BookTable.Models.DatabaseModels.Reservation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReservationId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReservationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationId })
+        </td>
+    </tr>
+}
+
+</table>
