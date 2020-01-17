@@ -6,15 +6,21 @@ using System.Web;
 
 namespace BookTable.Models.DatabaseModels
 {
-    public class Restaurant
+    public class Event
     {
-        public int RestaurantId { get; set; }
-        public int OwnerId { get; set; }
-        public bool Approved { get; set; }
+        public int EventId { get; set; }
+
         [Required]
         public String Name { get; set; }
-        public String Category { get; set; }
+
+        [Required]
+        public DateTime Date { get; set; }
+
         public String Description { get; set; }
-        public String Address { get; set; }
+
+        public Restaurant RestaurantId { get; set; }
+
+        [Display(Name="Image")]
+        public String ImageUrl { get; set; }
     }
 }
