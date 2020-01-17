@@ -11,6 +11,5 @@ namespace BookTable.Models.DatabaseModels
         public Restaurant Restaurant { get; set; }
         public int Seats { get; set; }
         public bool Avaliable { get; set; }
-        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }
