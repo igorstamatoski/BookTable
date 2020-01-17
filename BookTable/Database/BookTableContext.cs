@@ -1,4 +1,5 @@
 ﻿
+using BookTable.Models.DatabaseModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,7 +10,8 @@ namespace BookTable.Database
 {
     public class BookTableContext : DbContext
     {
-        
-
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Table> Tables { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
     }
 }

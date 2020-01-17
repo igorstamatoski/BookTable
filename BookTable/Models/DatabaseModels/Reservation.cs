@@ -1,7 +1,7 @@
 ﻿using System;
 using BookTable.Models;
 
-namespace BookATable.Models.DataBaseModels
+namespace BookTable.Models.DatabaseModels
 {
     public class Reservation
     {

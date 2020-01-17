@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BookATable.Models.DataBaseModels
+namespace BookTable.Models.DatabaseModels
 {
     public class Restaurant
     {
