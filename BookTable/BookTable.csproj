@@ -187,6 +187,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
@@ -200,9 +201,14 @@
     <Compile Include="Migrations\202001170037081_InitialMigration.Designer.cs">
       <DependentUpon>202001170037081_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001171947597_event-added.cs" />
+    <Compile Include="Migrations\202001171947597_event-added.Designer.cs">
+      <DependentUpon>202001171947597_event-added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddToRoleModel.cs" />
+    <Compile Include="Models\DatabaseModels\Event.cs" />
     <Compile Include="Models\DatabaseModels\Reservation.cs" />
     <Compile Include="Models\DatabaseModels\Restaurant.cs" />
     <Compile Include="Models\DatabaseModels\Table.cs" />
@@ -283,6 +289,11 @@
     <Content Include="Views\Restaurants\Details.cshtml" />
     <Content Include="Views\Restaurants\Edit.cshtml" />
     <Content Include="Views\Restaurants\Index.cshtml" />
+    <Content Include="Views\Events\Create.cshtml" />
+    <Content Include="Views\Events\Delete.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -303,6 +314,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001170037081_InitialMigration.resx">
       <DependentUpon>202001170037081_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001171947597_event-added.resx">
+      <DependentUpon>202001171947597_event-added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
