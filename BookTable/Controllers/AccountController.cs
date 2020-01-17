@@ -3,10 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BookTable.Models;
+using BookTable.Database;
 
 namespace BookTable.Controllers
 {
@@ -15,13 +17,14 @@ namespace BookTable.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private BookTableContext db = new BookTableContext();
+        
         public AccountController()
         {
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
+        { 
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -48,6 +51,13 @@ namespace BookTable.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        // Get Users
+       // public Action
+        public ActionResult Index()
+        {
+            return View(UserManager.Users.ToList());
         }
 
         //
@@ -85,6 +95,20 @@ namespace BookTable.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        public ActionResult GetUserRole(string userId)
+        {
+            //return Roles.GetRolesForUser(User.Identity.Name);
+            var role = UserManager.GetRoles(userId);
+            if (role.Count > 0)
+            {
+                return Content(UserManager.GetRoles(userId)[0]);
+            } else
+            {
+                return Content("No Role");
+            }
+            
         }
 
         //
