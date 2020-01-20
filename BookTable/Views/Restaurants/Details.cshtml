@@ -42,6 +42,10 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
     </dl>
+
+    <a href='@Url.Action("Create", "Events")'><button class="btn btn-primary">Add Event</button></a>
+    <a href='@Url.Action("tablesForRestaurant", "Tables", new { id=Model.RestaurantId })'><button class="btn btn-primary">My Tables</button>
+    </a>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.RestaurantId }) |
