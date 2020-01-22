@@ -205,6 +205,10 @@
     <Compile Include="Migrations\202001171947597_event-added.Designer.cs">
       <DependentUpon>202001171947597_event-added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001221845582_restaurant-model-changed.cs" />
+    <Compile Include="Migrations\202001221845582_restaurant-model-changed.Designer.cs">
+      <DependentUpon>202001221845582_restaurant-model-changed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddToRoleModel.cs" />
@@ -236,6 +240,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Content\jquery.datetimepicker.css" />
+    <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -321,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001171947597_event-added.resx">
       <DependentUpon>202001171947597_event-added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001221845582_restaurant-model-changed.resx">
+      <DependentUpon>202001221845582_restaurant-model-changed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

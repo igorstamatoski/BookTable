@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -8,16 +6,53 @@ using System.Web;
 using System.Web.Mvc;
 using BookTable.Database;
 using BookTable.Models.DatabaseModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+
 
 namespace BookTable.Controllers
 {
     public class RestaurantsController : Controller
     {
+        private ApplicationUserManager _userManager;
+
+        public RestaurantsController()
+        {
+        }
+
+        public RestaurantsController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         private BookTableContext db = new BookTableContext();
 
         // GET: Restaurants
         public ActionResult Index()
         {
+            List<Restaurant> restaurant = new List<Restaurant>();
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var restaurantUser = UserManager.IsInRole(user.Id, "Restaurant");
+
+            if(restaurantUser)
+            {
+                return View(db.Restaurants.Where(rest => rest.OwnerId == user.Id).ToList());
+            }
+           
             return View(db.Restaurants.ToList());
         }
 
@@ -47,10 +82,16 @@ namespace BookTable.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RestaurantId,Approved,Name,Category,Description,Rating")] Restaurant restaurant)
+        public ActionResult Create([Bind(Include = "RestaurantId,Name,Category,Description")] Restaurant restaurant)
         {
-            if (ModelState.IsValid)
+            
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            string ownID = user.Id;
+
+            if (ModelState.IsValid && ownID.Length > 0)
             {
+                restaurant.OwnerId = ownID;
                 db.Restaurants.Add(restaurant);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -111,6 +152,15 @@ namespace BookTable.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Restaurant restaurant = db.Restaurants.Find(id);
+
+
+            List<Table> tablesRest = db.Tables.Include(t => t.Restaurant).Where(t => t.Restaurant.RestaurantId == id).ToList();
+
+            foreach (Table tab in tablesRest )
+            {
+                db.Tables.Remove(db.Tables.Find(tab.TableId));
+            }
+
             db.Restaurants.Remove(restaurant);
             db.SaveChanges();
             return RedirectToAction("Index");

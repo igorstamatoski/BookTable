@@ -9,7 +9,7 @@ namespace BookTable.Models.DatabaseModels
     public class Restaurant
     {
         public int RestaurantId { get; set; }
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
         public bool Approved { get; set; }
         [Required]
         public String Name { get; set; }
