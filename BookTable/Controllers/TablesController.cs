@@ -129,6 +129,7 @@ namespace BookTable.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult createTableForRestaurant(TableInRestaurant tableRest)
         {
+           
             if (ModelState.IsValid)
             {
                 var restaurant = db.Restaurants.Find(tableRest.restaurantId);

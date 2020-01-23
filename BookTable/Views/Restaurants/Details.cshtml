@@ -43,7 +43,7 @@
         </dd>
     </dl>
 
-    <a href='@Url.Action("Create", "Events")'><button class="btn btn-primary">Add Event</button></a>
+    <a href='@Url.Action("createEventInRestaurant", "Events", new { id = Model.RestaurantId })'><button class="btn btn-primary">Add Event</button></a>
     <a href='@Url.Action("tablesForRestaurant", "Tables", new { id=Model.RestaurantId })'><button class="btn btn-primary">My Tables</button>
     </a>
 </div>

@@ -218,6 +218,7 @@
     <Compile Include="Models\DatabaseModels\Table.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\EventInRestaurant.cs" />
     <Compile Include="Models\ViewModels\TableInRestaurant.cs" />
     <Compile Include="Models\ViewModels\TablesInRestaurant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -304,6 +305,7 @@
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Tables\tablesForRestaurant.cshtml" />
     <Content Include="Views\Tables\createTableForRestaurant.cshtml" />
+    <Content Include="Views\Events\createEventInRestaurant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
