@@ -201,6 +201,10 @@
     <Compile Include="Migrations\202001170037081_InitialMigration.Designer.cs">
       <DependentUpon>202001170037081_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001171830302_new-role.cs" />
+    <Compile Include="Migrations\202001171830302_new-role.Designer.cs">
+      <DependentUpon>202001171830302_new-role.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202001171947597_event-added.cs" />
     <Compile Include="Migrations\202001171947597_event-added.Designer.cs">
       <DependentUpon>202001171947597_event-added.cs</DependentUpon>
@@ -294,6 +298,7 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -317,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001171947597_event-added.resx">
       <DependentUpon>202001171947597_event-added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001171830302_new-role.resx">
+      <DependentUpon>202001171830302_new-role.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
