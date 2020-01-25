@@ -58,11 +58,11 @@ namespace BookTable.Controllers
 
             if (restaurantUser)
             {
-                events = db.Events.Where(e => e.RestaurantId.RestaurantId == restaurant.RestaurantId).ToList();
+                events = db.Events.Include(e => e.RestaurantId).Where(e => e.RestaurantId.RestaurantId == restaurant.RestaurantId).ToList();
                 return View(events);
             }
 
-            return View(db.Restaurants.ToList());
+            return View(db.Events.Include(e => e.RestaurantId).ToList());
         }
 
         // GET: Events/Details/5
