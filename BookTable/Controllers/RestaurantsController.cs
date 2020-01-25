@@ -41,6 +41,7 @@ namespace BookTable.Controllers
         private BookTableContext db = new BookTableContext();
 
         // GET: Restaurants
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Index()
         {
             List<Restaurant> restaurant = new List<Restaurant>();
@@ -57,6 +58,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Restaurants/Details/5
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -72,6 +74,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Restaurants/Create
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Create()
         {
             return View();
@@ -82,6 +85,7 @@ namespace BookTable.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Create([Bind(Include = "RestaurantId,Name,Category,Description")] Restaurant restaurant)
         {
             
@@ -101,6 +105,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Restaurants/Edit/5
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -120,6 +125,7 @@ namespace BookTable.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Edit([Bind(Include = "RestaurantId,Approved,Name,Category,Description,Rating")] Restaurant restaurant)
         {
             if (ModelState.IsValid)
@@ -132,6 +138,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Restaurants/Delete/5
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -147,6 +154,7 @@ namespace BookTable.Controllers
         }
 
         // POST: Restaurants/Delete/5
+        [Authorize(Roles = "Admin,Restaurant")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

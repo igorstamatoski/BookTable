@@ -42,6 +42,7 @@ namespace BookTable.Controllers
         private BookTableContext db = new BookTableContext();
 
         // GET: Reservations
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Index()
         {
             List<Reservation> reservations = new List<Reservation>();
@@ -94,6 +95,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Reservations/Details/5
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -110,6 +112,7 @@ namespace BookTable.Controllers
 
         // POST: Reservations/makeReservation/EventId
         [HttpPost]
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult makeReservation(TablesToBook model, int id)
         {
 
@@ -152,6 +155,7 @@ namespace BookTable.Controllers
 
 
         // GET: Reservations/Create
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Create()
         {
             return View();
@@ -175,6 +179,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Reservations/Edit/5
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -194,6 +199,7 @@ namespace BookTable.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Edit([Bind(Include = "ReservationId,User,Time")] Reservation reservation)
         {
             if (ModelState.IsValid)
@@ -206,6 +212,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Reservations/Delete/5
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -223,6 +230,7 @@ namespace BookTable.Controllers
         // POST: Reservations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult DeleteConfirmed(int id)
         {
             Reservation reservation = db.Reservations.Find(id);

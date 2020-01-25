@@ -41,12 +41,15 @@ namespace BookTable.Controllers
         private BookTableContext db = new BookTableContext();
 
         // GET: Tables
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Index()
         {
             return View(db.Tables.ToList());
         }
 
+
         // GET: Tables/Details/5
+        [Authorize(Roles = "User,Admin,Restaurant")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -66,7 +69,9 @@ namespace BookTable.Controllers
             return View(table);
         }
 
+
         // GET: Tables/Create
+        [Authorize(Roles = "Admin, Restaurant")]
         public ActionResult Create()
         {
             return View();
@@ -77,6 +82,7 @@ namespace BookTable.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Restaurant")]
         public ActionResult Create([Bind(Include = "TableId,Seats,Avaliable")] Table table)
         {
             if (ModelState.IsValid)
@@ -90,6 +96,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Tables/Edit/5
+        [Authorize(Roles = "Admin, Restaurant")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -107,6 +114,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Tables/tablesToBook/EventId
+        [Authorize(Roles = "Admin, Restaurant,User")]
         public ActionResult tablesToBook(int? id)
         {
             if (id == null)
@@ -164,6 +172,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Tables/tablesForRestaurant/5
+        [Authorize(Roles = "Admin, Restaurant, User")]
         public ActionResult tablesForRestaurant(int? id)
         {
             if (id == null)
@@ -183,6 +192,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Tables/createTableForRestaurant/5
+        [Authorize(Roles = "Admin, Restaurant")]
         public ActionResult createTableForRestaurant(int? id)
         {
             if (id == null)
@@ -208,6 +218,7 @@ namespace BookTable.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Restaurant")]
         public ActionResult createTableForRestaurant(TableInRestaurant tableRest)
         {
            
@@ -230,6 +241,7 @@ namespace BookTable.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Restaurant")]
         public ActionResult Edit([Bind(Include = "TableId,Seats,Avaliable,Restaurant")] Table table)
         {
             if (ModelState.IsValid)
@@ -245,6 +257,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Tables/Delete/5
+        [Authorize(Roles = "Admin, Restaurant")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -265,6 +278,7 @@ namespace BookTable.Controllers
         // POST: Tables/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Restaurant")]
         public ActionResult DeleteConfirmed(int id)
         {
             Table table = db.Tables.Find(id);

@@ -42,6 +42,7 @@ namespace BookTable.Controllers
         private BookTableContext db = new BookTableContext();
 
         // GET: Events
+        [AllowAnonymous]
         public ActionResult Index()
         {
             List<Event> events = new List<Event>();
@@ -51,7 +52,7 @@ namespace BookTable.Controllers
 
             var restaurant = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
 
-            if(restaurant == null)
+            if (restaurant == null)
             {
                 return HttpNotFound();
             }
@@ -66,6 +67,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Events/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -81,6 +83,7 @@ namespace BookTable.Controllers
         }
 
         //GET: Events/createEventInRestaurant/id
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult createEventInRestaurant(int? id)
         {
             if (id == null)
@@ -104,6 +107,7 @@ namespace BookTable.Controllers
         // POST: Events/createEventInRestaurant/id
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult createEventInRestaurant(EventInRestaurant tableRest)
         {
             if (ModelState.IsValid)
@@ -124,6 +128,7 @@ namespace BookTable.Controllers
 
 
         // GET: Events/Create
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Create()
         {
             return View();
@@ -134,6 +139,7 @@ namespace BookTable.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Create([Bind(Include = "EventId,Name,Date,Description,ImageUrl")] Event @event)
         {
             if (ModelState.IsValid)
@@ -147,6 +153,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Events/Edit/5
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -166,6 +173,7 @@ namespace BookTable.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Edit([Bind(Include = "EventId,Name,Date,Description,ImageUrl")] Event @event)
         {
             if (ModelState.IsValid)
@@ -178,6 +186,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Events/Delete/5
+        [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -193,6 +202,7 @@ namespace BookTable.Controllers
         }
 
         // POST: Events/Delete/5
+        [Authorize(Roles = "Admin,Restaurant")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
