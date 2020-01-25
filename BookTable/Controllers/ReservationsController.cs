@@ -53,7 +53,7 @@ namespace BookTable.Controllers
 
             if(adminUser)
             {
-                var res = db.Reservations.Include(r => r.Event).Include(r => r.Table).ToList();
+                var res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).ToList();
 
                 foreach (Reservation r in res)
                 {
@@ -66,7 +66,7 @@ namespace BookTable.Controllers
             } else if(restaurantUser)
             {
                 Restaurant rest = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
-                List<Reservation> res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Where(r => r.Idto == user.Id && r.Event.RestaurantId.RestaurantId == rest.RestaurantId).ToList();
+                List<Reservation> res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).Where(r => r.Idto == user.Id && r.Event.RestaurantId.RestaurantId == rest.RestaurantId).ToList();
 
                 foreach(Reservation r in res)
                 {
@@ -78,7 +78,7 @@ namespace BookTable.Controllers
             }
             else if(ordinaryUser)
             {
-                var res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Where(r => r.Idto == user.Id).ToList();
+                var res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).Where(r => r.Idto == user.Id).ToList();
 
                 foreach (Reservation r in res)
                 {

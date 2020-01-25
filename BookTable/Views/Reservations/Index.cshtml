@@ -9,10 +9,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Idto)
+            Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
+            Created At
+        </th>
+        <th>
+            Event   
+        </th>
+        <th>
+            Restaurant
+        </th>
+        <th>
+            Table For
         </th>
         <th></th>
     </tr>
@@ -26,8 +35,17 @@
             @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.ReservationId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationId })
+            @Html.DisplayFor(modelItem => item.Event.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Table.Restaurant.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Table.Seats)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.ReservationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ReservationId })
         </td>
     </tr>
 }
