@@ -29,9 +29,10 @@
             @Html.DisplayFor(modelItem => item.Avaliable)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TableId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TableId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TableId })
+            @Html.ActionLink("Book", "bookATable", new { id = item.TableId }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.TableId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TableId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TableId })
         </td>
     </tr>
 }

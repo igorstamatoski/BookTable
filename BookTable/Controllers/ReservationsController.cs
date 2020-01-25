@@ -8,17 +8,89 @@ using System.Web;
 using System.Web.Mvc;
 using BookTable.Database;
 using BookTable.Models.DatabaseModels;
+using BookTable.Models.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace BookTable.Controllers
 {
     public class ReservationsController : Controller
     {
+        private ApplicationUserManager _userManager;
+
+        public ReservationsController()
+        {
+        }
+
+        public ReservationsController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         private BookTableContext db = new BookTableContext();
 
         // GET: Reservations
         public ActionResult Index()
         {
-            return View(db.Reservations.ToList());
+            List<Reservation> reservations = new List<Reservation>();
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var adminUser = UserManager.IsInRole(user.Id, "Admin");
+            var restaurantUser = UserManager.IsInRole(user.Id, "Restaurant");
+            var ordinaryUser = UserManager.IsInRole(user.Id, "User");
+
+            if(adminUser)
+            {
+                var res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).ToList();
+
+                foreach (Reservation r in res)
+                {
+                    string usr = UserManager.FindById(r.Idto).Email;
+                    r.Idto = usr;
+                }
+
+                return View(res);
+
+            } else if(restaurantUser)
+            {
+                Restaurant rest = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
+                List<Reservation> res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).Where(r => r.Idto == user.Id && r.Event.RestaurantId.RestaurantId == rest.RestaurantId).ToList();
+
+                foreach(Reservation r in res)
+                {
+                    string usr = UserManager.FindById(r.Idto).Email;
+                    r.Idto = usr;
+                }
+               
+                return View(res);
+            }
+            else if(ordinaryUser)
+            {
+                var res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).Where(r => r.Idto == user.Id).ToList();
+
+                foreach (Reservation r in res)
+                {
+                    string usr = UserManager.FindById(r.Idto).Email;
+                    r.Idto = usr;
+                }
+
+                return View(res);
+            }
+
+            
+            return RedirectToAction("Index","Home");
         }
 
         // GET: Reservations/Details/5
@@ -35,6 +107,49 @@ namespace BookTable.Controllers
             }
             return View(reservation);
         }
+
+        // POST: Reservations/makeReservation/EventId
+        [HttpPost]
+        public ActionResult makeReservation(TablesToBook model, int id)
+        {
+
+            var table = db.Tables.Include(t => t.Restaurant).Where(t => t.TableId == id).First();
+
+            if(table == null)
+            {
+                return HttpNotFound();
+            }
+
+            var evnt = db.Events.Find(model.eventId);
+
+            if (evnt == null)
+            {
+                return HttpNotFound();
+            }
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            if(user == null)
+            {
+                return HttpNotFound();
+            }
+
+
+            Reservation newReservation = new Reservation();
+            newReservation.CreatedAt = DateTime.UtcNow.ToLocalTime();
+            newReservation.Event = evnt;
+            newReservation.Idto = user.Id;
+            newReservation.Table = table;
+
+            db.Reservations.Add(newReservation);
+            db.SaveChanges();
+
+            return RedirectToAction("tablesToBook","Tables", new { id = evnt.EventId });
+
+        }
+
+
+
 
         // GET: Reservations/Create
         public ActionResult Create()

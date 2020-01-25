@@ -6,6 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
 
 </head>
 <body>
@@ -27,6 +30,7 @@
                     <li>@Html.ActionLink("Restaurants", "Index", "Restaurants")</li>
                     <li>@Html.ActionLink("Users", "Index", "Account")</li>
                     <li>@Html.ActionLink("Add Restaurant", "Create", "Restaurants")</li>
+                    <li>@Html.ActionLink("Reservations", "Index", "Reservations")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -197,9 +197,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001170037081_InitialMigration.cs" />
-    <Compile Include="Migrations\202001170037081_InitialMigration.Designer.cs">
-      <DependentUpon>202001170037081_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202001221922442_InitialCreate.cs" />
+    <Compile Include="Migrations\202001221922442_InitialCreate.Designer.cs">
+      <DependentUpon>202001221922442_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202001171830302_new-role.cs" />
     <Compile Include="Migrations\202001171830302_new-role.Designer.cs">
@@ -208,6 +208,9 @@
     <Compile Include="Migrations\202001171947597_event-added.cs" />
     <Compile Include="Migrations\202001171947597_event-added.Designer.cs">
       <DependentUpon>202001171947597_event-added.cs</DependentUpon>
+    <Compile Include="Migrations\202001242357100_changes.cs" />
+    <Compile Include="Migrations\202001242357100_changes.Designer.cs">
+      <DependentUpon>202001242357100_changes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -218,6 +221,10 @@
     <Compile Include="Models\DatabaseModels\Table.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\EventInRestaurant.cs" />
+    <Compile Include="Models\ViewModels\TableInRestaurant.cs" />
+    <Compile Include="Models\ViewModels\TablesInRestaurant.cs" />
+    <Compile Include="Models\ViewModels\TablesToBook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -238,6 +245,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Content\jquery.datetimepicker.css" />
+    <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -298,6 +307,10 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Tables\tablesForRestaurant.cshtml" />
+    <Content Include="Views\Tables\createTableForRestaurant.cshtml" />
+    <Content Include="Views\Events\createEventInRestaurant.cshtml" />
+    <Content Include="Views\Tables\tablesToBook.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -317,11 +330,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001170037081_InitialMigration.resx">
-      <DependentUpon>202001170037081_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001221922442_InitialCreate.resx">
+      <DependentUpon>202001221922442_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001171947597_event-added.resx">
-      <DependentUpon>202001171947597_event-added.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001242357100_changes.resx">
+      <DependentUpon>202001242357100_changes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001171830302_new-role.resx">
       <DependentUpon>202001171830302_new-role.cs</DependentUpon>
