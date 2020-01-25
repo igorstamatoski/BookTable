@@ -4,47 +4,48 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="mb-3">Future events</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <!-- Card -->
+            <div style="margin-bottom: 40px" class="card booking-card">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            <img src="@item.ImageUrl" style="width:50px; height:50px">
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EventId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EventId })
-        </td>
-    </tr>
-}
+                <!-- Card image -->
+                <div class="view overlay">
+                    <img width="300" class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" alt="Card image cap">
+                    <a href="#!">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
 
-</table>
+                <!-- Card content -->
+                <div class="card-body">
+
+                    <!-- Title -->
+                    <h4 class="card-title font-weight-bold">@Html.DisplayFor(modelItem => item.Name)</h4>
+                    <!-- Data -->
+                    <ul class="list-unstyled list-inline rating mb-0">
+                        <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"> </i></li>
+                        <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"></i></li>
+                        <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"></i></li>
+                        <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"></i></li>
+                        <li class="list-inline-item"><i class="fa fa-star-half amber-text text-warning"></i></li>
+                        <li class="list-inline-item"><p class="text-muted">4.5 (413)</p></li>
+                    </ul>
+                    <b class="mb-2 ">@Html.DisplayFor(modelItem => item.RestaurantId.Name)</b>
+                    <!-- Text -->
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <hr class="my-4">
+                    <p class="lead"><strong>Time</strong></p>
+                    <p>@Html.DisplayFor(modelItem => item.Date)</p>
+                    <!-- Button -->
+                    <a href="Tables/tablesToBook/@item.EventId" class="btn btn-success btn-block deep-purple-text p-1 mx-0 mb-0">BOOK</a>
+                </div>
+            </div>
+            <!-- Card -->
+        </div>
+    }
+</div>

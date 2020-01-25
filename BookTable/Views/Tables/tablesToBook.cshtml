@@ -4,43 +4,21 @@
 
 <h3>Restaurant: @Model.restaurant.Name</h3>
 
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.tables.ElementAt(0).Seats)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tables.ElementAt(0).Avaliable)
-        </th>
-        <th></th>
-    </tr>
-
+<div class="mt-5">
     @foreach (var item in Model.tables)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seats)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Avaliable)
-            </td>
-            <td>
-                @{ if (item.Avaliable)
-                    {
-                        using (Html.BeginForm("makeReservation", "Reservations", new { id = item.TableId }, FormMethod.Post, new { }))
-                        {
-                            @Html.HiddenFor(model => model.eventId)
-                            <input class="btn btn-warning" type="submit" value="Book" />
-                        }
-                    }
-                    else
-                    {
-                            <input class="btn btn-danger" type="button" disabled value="Book" />
-                    }
-                }
-            </td>
-        </tr>
+        if (item.Avaliable)
+        {
+            using (Html.BeginForm("makeReservation", "Reservations", new { id = item.TableId }, FormMethod.Post, new { style = "display:inline-block" }))
+            {
+                @Html.HiddenFor(model => model.eventId)
+                <button type="submit" class="btn btn-success border-0 rounded-circle " style="width: 100px; height: 100px;">@Html.DisplayFor(modelItem => item.Seats) seats</button>
+            }
+        }
+        else
+        {
+                <button disabled class="btn btn-success border-0 rounded-circle" style="width: 100px; height: 100px">@Html.DisplayFor(modelItem => item.Seats) seats</button>
+        }
+    
     }
-
-</table>
+</div>

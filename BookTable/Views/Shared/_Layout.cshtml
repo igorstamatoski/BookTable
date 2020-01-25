@@ -7,40 +7,47 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/fontawesome")
+    @RenderSection("head", required: false)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav style="background-color: rgba(0,0,0,0.7)" class="navbar navbar-expand-md fixed-top navbar-dark">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Restaurants", "Index", "Restaurants")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Account")</li>
-                    <li>@Html.ActionLink("Add Restaurant", "Create", "Restaurants")</li>
-                    <li>@Html.ActionLink("Reservations", "Index", "Reservations")</li>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="/Home/Index" class="navbar-brand mr-5"><img src="~/Assets/logo.png"></a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                    <li class="nav-item">@Html.ActionLink("Events", "Index", "Events", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                    @if (User.IsInRole("Restaurant"))
+                    {
+                        <li class="nav-item">@Html.ActionLink("My Restaurant", "Index", "Restaurants", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                    }
+
+                    @if (User.IsInRole("Restaurant") || User.IsInRole("User") || User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">@Html.ActionLink("Reservations", "Index", "Reservations", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
+    </nav>
+    <div style="margin-bottom: 30px">
+
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Book a table</p>
         </footer>
     </div>
 

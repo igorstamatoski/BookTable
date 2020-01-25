@@ -66,8 +66,13 @@ namespace BookTable.Controllers
 
             } else if(restaurantUser)
             {
-                Restaurant rest = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
-                List<Reservation> res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).Where(r => r.Idto == user.Id && r.Event.RestaurantId.RestaurantId == rest.RestaurantId).ToList();
+                var res = new List<Reservation>();
+                if (db.Restaurants.Where(r => r.OwnerId == user.Id).ToList().Count() > 0)
+                {
+
+                    Restaurant rest = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
+                    res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).Where(r => r.Idto == user.Id && r.Event.RestaurantId.RestaurantId == rest.RestaurantId).ToList();
+                }
 
                 foreach(Reservation r in res)
                 {

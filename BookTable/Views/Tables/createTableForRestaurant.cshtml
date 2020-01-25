@@ -1,15 +1,12 @@
 ﻿@model BookTable.Models.ViewModels.TableInRestaurant
 
-
-<h2>Create</h2>
-
+<h4>Add a table</h4>
 
 @using (Html.BeginForm(FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Table</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -19,22 +16,13 @@
                 @Html.ValidationMessageFor(model => model.table.Seats, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.table.Avaliable, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.table.Avaliable)
-                    @Html.ValidationMessageFor(model => model.table.Avaliable, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
         @Html.HiddenFor(model => model.restaurantId)
         </div>
   
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <a href="/Tables/tablesForRestaurant/@Model.restaurantId"><button type="button" class="btn btn-secondary">Cancel</button></a>
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </div>
 }

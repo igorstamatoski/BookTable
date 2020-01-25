@@ -48,17 +48,25 @@ namespace BookTable.Controllers
             List<Event> events = new List<Event>();
 
             var user = UserManager.FindById(User.Identity.GetUserId());
-            var restaurantUser = UserManager.IsInRole(user.Id, "Restaurant");
+            bool restaurantUser = false;
+            Restaurant restaurant = null;
 
-            var restaurant = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
-
-            if (restaurant == null)
+            if (user != null)
             {
-                return HttpNotFound();
+                restaurantUser = UserManager.IsInRole(user.Id, "Restaurant");
+                if (restaurantUser)
+                {
+                    restaurant = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
+                }
+               
             }
 
             if (restaurantUser)
             {
+                if (restaurant == null)
+                {
+                    return HttpNotFound();
+                }
                 events = db.Events.Include(e => e.RestaurantId).Where(e => e.RestaurantId.RestaurantId == restaurant.RestaurantId).ToList();
                 return View(events);
             }

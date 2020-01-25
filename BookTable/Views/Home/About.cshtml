@@ -1,7 +1,83 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+@section head{
+    <style type="text/css">
+        body {
+            background-color: lightgray;
+        }
+    </style>
+    <link href="~/Style/About.css" rel="stylesheet" />
+    @Styles.Render("~/Content/fontawesome")
+}
+
+<div class="pt-5">
+    <h2><span>Not your usual booking site!</span></h2>
+</div>
+
+<div class="pt-5 text-center container">
+    <p>Reservation of a table for your favourite restaurant has never been easier. In one place you will find all the events from your favourite restaurants and bars and with only few steps you can book your table!</p>
+</div>
+
+<div class="pt-5">
+    <h2><span>Our team</span></h2>
+</div>
+
+<div class="pt-4">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip">
+                <div class="mainflip">
+                    <div class="frontside">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p><img style="width: 150px; height:150px" class="rounded-circle" src="https://yt3.ggpht.com/a/AGF-l79FuW0J-3yNb3Q3oD0ywx8sleSqJd7NJPUgHA=s288-c-k-c0xffffffff-no-rj-mo" alt="card image"></p>
+                                <h4 class="card-title">Naum Shapkarovski</h4>
+                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
+                                <a href="https://www.facebook.com/naum.shapkarovski" class="btn btn-primary btn-sm"><i class="fa fa-facebook"></i></a>
+                                <a href="https://www.linkedin.com/in/naumshapkarovski/" class="btn btn-primary btn-sm"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip">
+                <div class="mainflip">
+                    <div class="frontside">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p><img style="width: 150px; height:150px" class="rounded-circle" src="https://scontent.fskp2-1.fna.fbcdn.net/v/t1.0-9/60462515_2618443424837338_4172398932350992384_n.jpg?_nc_cat=111&_nc_ohc=0B8Zgd5sL80AX-WjF7n&_nc_ht=scontent.fskp2-1.fna&oh=c3bf79a40a8946f847efd9509413fee7&oe=5ECCE48A" alt="card image"></p>
+                                <h4 class="card-title">Igor Stamatoski</h4>
+                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
+                                <a href="https://www.facebook.com/igor.stamatoski" class="btn btn-primary btn-sm"><i class="fa fa-facebook"></i></a>
+                                <a href="https://www.facebook.com/igor.stamatoski" class="btn btn-primary btn-sm"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip">
+                <div class="mainflip">
+                    <div class="frontside">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p><img style="width: 150px; height:150px" class="rounded-circle" src="https://media.licdn.com/dms/image/C4D03AQFo_XpUwndoOA/profile-displayphoto-shrink_200_200/0?e=1583971200&v=beta&t=Q9YzesHbHXcGFniCHxoEEvdzMZd3wd5VZOYPBYsuEp0" alt="card image"></p>
+                                <h4 class="card-title">Antonio Risteski</h4>
+                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
+                                <a href="https://www.facebook.com/antonioristeskii" class="btn btn-primary btn-sm"><i class="fa fa-facebook"></i></a>
+                                <a href="https://www.linkedin.com/in/antonio-risteski/" class="btn btn-primary btn-sm"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

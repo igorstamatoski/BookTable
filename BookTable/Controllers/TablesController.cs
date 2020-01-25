@@ -41,7 +41,7 @@ namespace BookTable.Controllers
         private BookTableContext db = new BookTableContext();
 
         // GET: Tables
-        [Authorize(Roles = "User,Admin,Restaurant")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.Tables.ToList());

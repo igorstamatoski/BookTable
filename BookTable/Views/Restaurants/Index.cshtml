@@ -4,11 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (Model.Count() > 0)
+{
+
+<h2 class="d-inline float-left">Your restaurant</h2>
+
 <table class="table">
     <tr>
         <th>
@@ -24,7 +25,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -45,3 +47,13 @@
 }
 
 </table>
+<hr/>
+}
+else
+{   <div style="width:50%" class="m-auto">
+    <h2>Add your restaurant!</h2>
+    <p>After adding your restaurant you can create evets</p>
+    <a href="/Restaurants/Create"><button class="btn btn-success mt-5 mb-5">Add new</button></a>
+</div>
+}
+
