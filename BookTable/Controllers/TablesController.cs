@@ -9,11 +9,35 @@ using System.Web.Mvc;
 using BookTable.Database;
 using BookTable.Models.DatabaseModels;
 using BookTable.Models.ViewModels;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace BookTable.Controllers
 {
     public class TablesController : Controller
     {
+        private ApplicationUserManager _userManager;
+
+        public TablesController()
+        {
+        }
+
+        public TablesController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         private BookTableContext db = new BookTableContext();
 
         // GET: Tables
@@ -80,6 +104,63 @@ namespace BookTable.Controllers
                 return HttpNotFound();
             }
             return View(table);
+        }
+
+        // GET: Tables/tablesToBook/EventId
+        public ActionResult tablesToBook(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var e = db.Events.Include(r => r.RestaurantId).Where(evnt => evnt.EventId == id).First();
+
+            if (e == null)
+            {
+                return HttpNotFound();
+            }
+
+            var rest = db.Restaurants.Find(e.RestaurantId.RestaurantId);
+
+            if (rest == null)
+            {
+                return HttpNotFound();
+            }
+
+            var reservations = db.Reservations.Where(r => r.Event.EventId == e.EventId).ToList();
+            var restTables = db.Tables.Where(t => t.Restaurant.RestaurantId == rest.RestaurantId).ToList();
+            bool flag = false;
+            foreach(Table t in restTables)
+            {
+                flag = false;
+
+                foreach(Reservation r in reservations)
+                {
+                    if(t.TableId == r.Table.TableId)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+
+                if(flag)
+                {
+                    t.Avaliable = false;
+                } else
+                {
+                    t.Avaliable = true;
+                }
+
+            }
+
+            TablesToBook model = new TablesToBook();
+
+            model.tables = restTables;
+            model.restaurant = rest;
+            model.eventId = (int)id;
+
+            return View(model);
         }
 
         // GET: Tables/tablesForRestaurant/5
