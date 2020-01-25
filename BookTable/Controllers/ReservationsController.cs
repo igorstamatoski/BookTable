@@ -44,7 +44,53 @@ namespace BookTable.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
-            return View(db.Reservations.ToList());
+            List<Reservation> reservations = new List<Reservation>();
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var adminUser = UserManager.IsInRole(user.Id, "Admin");
+            var restaurantUser = UserManager.IsInRole(user.Id, "Restaurant");
+            var ordinaryUser = UserManager.IsInRole(user.Id, "User");
+
+            if(adminUser)
+            {
+                var res = db.Reservations.Include(r => r.Event).Include(r => r.Table).ToList();
+
+                foreach (Reservation r in res)
+                {
+                    string usr = UserManager.FindById(r.Idto).Email;
+                    r.Idto = usr;
+                }
+
+                return View(res);
+
+            } else if(restaurantUser)
+            {
+                Restaurant rest = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
+                List<Reservation> res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Where(r => r.Idto == user.Id && r.Event.RestaurantId.RestaurantId == rest.RestaurantId).ToList();
+
+                foreach(Reservation r in res)
+                {
+                    string usr = UserManager.FindById(r.Idto).Email;
+                    r.Idto = usr;
+                }
+               
+                return View(res);
+            }
+            else if(ordinaryUser)
+            {
+                var res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Where(r => r.Idto == user.Id).ToList();
+
+                foreach (Reservation r in res)
+                {
+                    string usr = UserManager.FindById(r.Idto).Email;
+                    r.Idto = usr;
+                }
+
+                return View(res);
+            }
+
+            
+            return RedirectToAction("Index","Home");
         }
 
         // GET: Reservations/Details/5

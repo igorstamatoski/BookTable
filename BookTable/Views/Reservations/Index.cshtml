@@ -1,21 +1,18 @@
 ﻿@model IEnumerable<BookTable.Models.DatabaseModels.Reservation>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Reservations";
 }
 
-<h2>Index</h2>
+<h2>Reservations</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User)
+            @Html.DisplayNameFor(model => model.Idto)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Time)
+            @Html.DisplayNameFor(model => model.CreatedAt)
         </th>
         <th></th>
     </tr>
@@ -23,13 +20,12 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.User)
+            @Html.DisplayFor(modelItem => item.Idto)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Time)
+            @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ReservationId }) |
             @Html.ActionLink("Details", "Details", new { id=item.ReservationId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ReservationId })
         </td>
