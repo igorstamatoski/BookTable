@@ -31,10 +31,17 @@
                         <li class="nav-item">@Html.ActionLink("My Restaurant", "Index", "Restaurants", new { area = "" }, new { @class = "nav-link text-white" })</li>
                     }
 
+                    @if (User.IsInRole("Restaurant"))
+                    {
+                        <li class="nav-item">@Html.ActionLink("My Events", "Index", "Events", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                    }
+
                     @if (User.IsInRole("Restaurant") || User.IsInRole("User") || User.IsInRole("Admin"))
                     {
                         <li class="nav-item">@Html.ActionLink("Reservations", "Index", "Reservations", new { area = "" }, new { @class = "nav-link text-white" })</li>
                     }
+
+
 
                 </ul>
                 @Html.Partial("_LoginPartial")

@@ -423,6 +423,9 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Reservations\confirmedReservation.cshtml" />
+    <Content Include="Views\Restaurants\deleteFailed.cshtml" />
+    <Content Include="Views\Events\editingEvents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

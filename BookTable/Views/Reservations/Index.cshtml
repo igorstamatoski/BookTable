@@ -48,8 +48,8 @@
                 @Html.DisplayFor(modelItem => item.Table.Seats)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.ReservationId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ReservationId })
+                <a class="btn btn-primary mr-2" href="/Reservations/Details/@item.ReservationId">Details</a>
+                <a class="btn btn-danger" href="/Reservations/Delete/@item.ReservationId">Delete</a>
             </td>
         </tr>
     }

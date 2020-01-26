@@ -93,6 +93,43 @@ namespace BookTable.Controllers
             return View(@event);
         }
 
+        [Authorize(Roles = "Admin,Restaurant")]
+        public ActionResult editingEvents()
+        {
+
+            List<Event> events = new List<Event>();
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            bool restaurantUser = false;
+            Restaurant restaurant = null;
+
+            if (user != null)
+            {
+                restaurantUser = UserManager.IsInRole(user.Id, "Restaurant");
+                if (restaurantUser)
+                {
+                    if (db.Restaurants.Where(r => r.OwnerId == user.Id).ToList().Count() > 0)
+                    {
+                        restaurant = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
+                    }
+                }
+
+            }
+
+            if (restaurantUser)
+            {
+                if (restaurant == null)
+                {
+                    return View(db.Events.Include(e => e.RestaurantId).Where(e => e.Date > DateTime.Now).ToList());
+                }
+                events = db.Events.Include(e => e.RestaurantId).Where(e => e.RestaurantId.RestaurantId == restaurant.RestaurantId && e.Date > DateTime.Now).ToList();
+                return View(events);
+            }
+
+            return View(db.Events.Include(e => e.RestaurantId).Where(e => e.Date > DateTime.Now).ToList());
+        }
+
+
         //GET: Events/createEventInRestaurant/id
         [Authorize(Roles = "Admin,Restaurant")]
         public ActionResult createEventInRestaurant(int? id)

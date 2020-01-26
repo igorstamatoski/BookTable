@@ -152,8 +152,14 @@ namespace BookTable.Controllers
             db.Reservations.Add(newReservation);
             db.SaveChanges();
 
-            return RedirectToAction("tablesToBook","Tables", new { id = evnt.EventId });
+            return RedirectToAction("confirmedReservation");
 
+        }
+
+        [Authorize(Roles = "User,Admin,Restaurant")]
+        public ActionResult confirmedReservation()
+        {
+            return View();
         }
 
 

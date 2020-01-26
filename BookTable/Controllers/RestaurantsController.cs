@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -150,8 +151,33 @@ namespace BookTable.Controllers
             {
                 return HttpNotFound();
             }
-            return View(restaurant);
+
+            List<Table> tablesRest = db.Tables.Include(t => t.Restaurant).Where(t => t.Restaurant.RestaurantId == id).ToList();
+
+            foreach (Table tab in tablesRest)
+            {
+                db.Tables.Remove(db.Tables.Find(tab.TableId));
+            }
+
+            try
+            {
+                db.Restaurants.Remove(restaurant);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("deleteFailed");
+            }
+
         }
+
+        //GET:
+        public ActionResult deleteFailed()
+        {
+            return View();
+        }
+
 
         // POST: Restaurants/Delete/5
         [Authorize(Roles = "Admin,Restaurant")]
@@ -161,17 +187,8 @@ namespace BookTable.Controllers
         {
             Restaurant restaurant = db.Restaurants.Find(id);
 
-
-            List<Table> tablesRest = db.Tables.Include(t => t.Restaurant).Where(t => t.Restaurant.RestaurantId == id).ToList();
-
-            foreach (Table tab in tablesRest )
-            {
-                db.Tables.Remove(db.Tables.Find(tab.TableId));
-            }
-
-            db.Restaurants.Remove(restaurant);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return View();
+           
         }
 
         protected override void Dispose(bool disposing)
