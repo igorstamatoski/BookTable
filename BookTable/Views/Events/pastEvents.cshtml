@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<BookTable.Models.DatabaseModels.Event>
 
 @{
-    ViewBag.Title = "Events";
+    ViewBag.Title = "Past Events";
 }
 
-<div><a href="/Events/pastEvents" class="btn btn-dark btn-outline-info float-right">Past Events</a></div>
+<div><a href="/Events/Index" class="btn btn-dark btn-outline-info float-right">Future Events</a></div>
 @if (Model.Count() > 0)
 {
-    <h2>Future events</h2>
+    <h2>Past events</h2>
     <div class="row">
         @foreach (var item in Model)
         {
@@ -16,7 +16,7 @@
                 <div class="card booking-card mt-3">
 
                     <!-- Card image -->
-                    <div class="view overlay">
+                    <div class="view overlay" >
                         <img class="card-img-top" style="width: 100%;height: 40vh;object-fit: cover" src="@item.ImageUrl" alt="Card image cap">
                         <a href="#!">
                             <div class="mask rgba-white-slight"></div>
@@ -37,16 +37,13 @@
                             <li class="list-inline-item"><i class="fa fa-star-half amber-text text-warning"></i></li>
                             <li class="list-inline-item"><p class="text-muted">4.5 (413)</p></li>
                         </ul>
-                        <b class="mb-2 ">Place: @Html.DisplayFor(modelItem => item.RestaurantId.Name)</b>
+                        <b class="mb-2 ">FINISHED</b>
                         <!-- Text -->
-                        <p class="card-text">@Html.Label(item.RestaurantId.Address)</p>
-                        <p class="card-text">@Html.Label(item.Description)</p>
-
                         <hr class="my-4">
                         <p>@Html.Label(@item.Date.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("en-EN")))</p>
                         <p class="lead"><strong>Time: @Html.Label(@item.Date.ToString("HH:mm"))</strong></p>
                         <!-- Button -->
-                        <a href="Tables/tablesToBook/@item.EventId" class="btn btn-success btn-block deep-purple-text p-1 mx-0 mb-0">BOOK</a>
+                        <a href="Tables/tablesToBook/@item.EventId" class="btn btn-success btn-block deep-purple-text p-1 mx-0 mb-0 disabled">BOOK</a>
                     </div>
                 </div>
                 <!-- Card -->
@@ -58,6 +55,6 @@ else
 {
     <div style="text-align:center" class="m-auto">
         <img style="width:20%" src="https://www.familytimemalta.com/wp-content/uploads/2018/11/event-icon.png">
-        <h3 class="mb-5" style="color:gray">There are no future events added, please visit us later!</h3>
+        <h3 class="mb-5" style="color:gray">There are no past events, please visit us later!</h3>
     </div>
 }

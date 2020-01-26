@@ -4,6 +4,7 @@
     ViewBag.Title = "TablesForRestaurant";
 }
 
+<div class="ml-auto mr-auto" style="width:50%">
 <h2>My Tables</h2>
 
 
@@ -11,9 +12,6 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Seats)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Avaliable)
         </th>
         <th></th>
     </tr>
@@ -24,21 +22,23 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Seats)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Avaliable)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TableId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.TableId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TableId })
+            <td style="text-align:end">
+                <a class="btn btn-secondary" href="/Tables/Edit/@item.TableId">Edit</a>
+                <a class="btn btn-danger" href="/Tables/Delete/@item.TableId">Delete</a>
             </td>
         </tr>
     }
 
+    
+        
+
 </table>
-
-<div style="float: right">
-<a href="/Restaurants/Index"><button type="button" class="btn btn-primary">Back</button></a>
-<a href="/Tables/createTableForRestaurant/@ViewBag.RestId"><button type="button" class="btn btn-success">New Table</button></a>
-
+<div class="mb-5">
+    <a href="/Restaurants/Details/@ViewBag.RestId"><button type="button" class="btn btn-secondary">Back</button></a>
+    <a href="/Tables/createTableForRestaurant/@ViewBag.RestId"><button type="button" class="btn btn-success">New Table</button></a>
 </div>
+</div>
+
+
+
+

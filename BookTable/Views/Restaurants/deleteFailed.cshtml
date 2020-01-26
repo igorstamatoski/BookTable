@@ -1,8 +1,20 @@
 ﻿
+
+
+<h2></h2>
+<h3></h3>
+
+
 @{
     ViewBag.Title = "Delete failed";
 }
 
-<h2>You cannot delete your restaurant because there are reservations for future event!</h2>
-<h3>Wait until event is finished and than you can delete your restaurant</h3>
+<div style="text-align:center" class="mb-5">
+    <img style="width:20%" src="https://koenig-media.raywenderlich.com/uploads/2018/11/monster_annoyed2-320x320.png">
+    <div style="width:50%;" class="ml-auto mr-auto">
+    <h4 style="color:gray">You cannot delete your restaurant because there are reservations for future event!</h4>
+    <p style="color:gray">Wait until event is finished and than delete your restaurant...</p>
+    </div>
+    <a href="/Restaurants/Index"><button class="btn btn-secondary mt-3">Back</button></a>
+</div>
 

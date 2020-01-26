@@ -161,13 +161,38 @@ namespace BookTable.Controllers
 
             try
             {
-                db.Restaurants.Remove(restaurant);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var reservations = db.Reservations.Include(r => r.Table)
+                    .Include(r => r.Event).Where(r => r.Table.Restaurant.RestaurantId == restaurant.RestaurantId).ToList();
+                bool canDelete = true;
+                foreach(Reservation r in reservations)
+                {
+                    if(r.Event.Date > DateTime.Now)
+                    {
+                        canDelete = false;
+                    }
+                }
+
+                if(canDelete)
+                {
+
+                    foreach(Reservation r in reservations)
+                    {
+                        db.Reservations.Remove(db.Reservations.Find(r.ReservationId));
+                    }
+
+                    db.Restaurants.Remove(restaurant);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                } else
+                {
+                    return RedirectToAction("deleteFailed");
+                }
+
+               
             }
             catch(Exception e)
             {
-                return RedirectToAction("deleteFailed");
+                return RedirectToAction("deleteFailed"); ;
             }
 
         }

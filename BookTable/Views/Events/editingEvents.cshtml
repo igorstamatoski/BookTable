@@ -9,7 +9,7 @@
 
 <h2>Edit your events</h2>
 
-<table class="table">
+<table class="table mb-5">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -21,6 +21,9 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
+            Status
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ImageUrl)
         </th>
         <th></th>
@@ -28,24 +31,33 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name) 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <img src="@item.ImageUrl" style="max-width:100px">
-            </td>
-            <td>
-                <a href="/Events/Edit/@item.EventId" class="btn btn-primary btn-block">Edit</a>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @if(item.Date < DateTime.Now)
+            {
+                <b style="color:red">Finished</b>
+            } else
+            {
+                <b style="color:green">Active</b>
+            }
+        </td>
+        <td>
+            <img src="@item.ImageUrl" style="max-width:100px">
+        </td>
+        <td>
+            <a href="/Events/Edit/@item.EventId" class="btn btn-primary btn-block">Edit</a>
 
-            </td>
-        </tr>
+        </td>
+    </tr>
     }
 
 </table>
