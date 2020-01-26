@@ -4,48 +4,58 @@
     ViewBag.Title = "Index";
 }
 
-<h2 class="mb-3">Future events</h2>
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4">
-            <!-- Card -->
-            <div style="margin-bottom: 40px" class="card booking-card">
+@if (Model.Count() > 0)
+{
+    <h2>Furure events</h2>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <!-- Card -->
+                <div style="margin-bottom: 40px" class="card booking-card">
 
-                <!-- Card image -->
-                <div class="view overlay">
-                    <img width="300" class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" alt="Card image cap">
-                    <a href="#!">
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
+                    <!-- Card image -->
+                    <div class="view overlay">
+                        <img width="300" class="card-img-top" src="@item.ImageUrl" alt="Card image cap">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+
+                    <!-- Card content -->
+                    <div class="card-body">
+
+                        <!-- Title -->
+                        <h4 class="card-title font-weight-bold">@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <!-- Data -->
+                        <ul class="list-unstyled list-inline rating mb-0">
+                            <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"> </i></li>
+                            <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"></i></li>
+                            <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"></i></li>
+                            <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"></i></li>
+                            <li class="list-inline-item"><i class="fa fa-star-half amber-text text-warning"></i></li>
+                            <li class="list-inline-item"><p class="text-muted">4.5 (413)</p></li>
+                        </ul>
+                        <b class="mb-2 ">Place: @Html.DisplayFor(modelItem => item.RestaurantId.Name)</b>
+                        <!-- Text -->
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                        <hr class="my-4">
+                        <p>@Html.Label(@item.Date.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("en-EN")))</p>
+                        <p class="lead"><strong>Time: @Html.Label(@item.Date.ToString("HH:mm"))</strong></p>
+                        <!-- Button -->
+                        <a href="Tables/tablesToBook/@item.EventId" class="btn btn-success btn-block deep-purple-text p-1 mx-0 mb-0">BOOK</a>
+                    </div>
                 </div>
-
-                <!-- Card content -->
-                <div class="card-body">
-
-                    <!-- Title -->
-                    <h4 class="card-title font-weight-bold">@Html.DisplayFor(modelItem => item.Name)</h4>
-                    <!-- Data -->
-                    <ul class="list-unstyled list-inline rating mb-0">
-                        <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"> </i></li>
-                        <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"></i></li>
-                        <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"></i></li>
-                        <li class="list-inline-item mr-0"><i class="fa fa-star amber-text text-warning"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-half amber-text text-warning"></i></li>
-                        <li class="list-inline-item"><p class="text-muted">4.5 (413)</p></li>
-                    </ul>
-                    <b class="mb-2 ">@Html.DisplayFor(modelItem => item.RestaurantId.Name)</b>
-                    <!-- Text -->
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                    <hr class="my-4">
-                    <p class="lead"><strong>Time</strong></p>
-                    <p>@Html.DisplayFor(modelItem => item.Date)</p>
-                    <!-- Button -->
-                    <a href="Tables/tablesToBook/@item.EventId" class="btn btn-success btn-block deep-purple-text p-1 mx-0 mb-0">BOOK</a>
-                </div>
+                <!-- Card -->
             </div>
-            <!-- Card -->
-        </div>
-    }
-</div>
+        }
+    </div>
+}
+else
+{
+    <div style="text-align:center" class="m-auto">
+        <img style="width:20%" src="https://www.familytimemalta.com/wp-content/uploads/2018/11/event-icon.png">
+        <h3 class="mb-5" style="color:gray">There are no events added, please visit us later!</h3>
+    </div>
+}

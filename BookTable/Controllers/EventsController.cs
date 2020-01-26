@@ -56,7 +56,10 @@ namespace BookTable.Controllers
                 restaurantUser = UserManager.IsInRole(user.Id, "Restaurant");
                 if (restaurantUser)
                 {
-                    restaurant = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
+                    if (db.Restaurants.Where(r => r.OwnerId == user.Id).ToList().Count() > 0)
+                    {
+                        restaurant = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
+                    }
                 }
                
             }
@@ -65,13 +68,13 @@ namespace BookTable.Controllers
             {
                 if (restaurant == null)
                 {
-                    return HttpNotFound();
+                    return View(db.Events.Include(e => e.RestaurantId).Where(e => e.Date > DateTime.Now).ToList());
                 }
-                events = db.Events.Include(e => e.RestaurantId).Where(e => e.RestaurantId.RestaurantId == restaurant.RestaurantId).ToList();
+                events = db.Events.Include(e => e.RestaurantId).Where(e => e.RestaurantId.RestaurantId == restaurant.RestaurantId && e.Date > DateTime.Now).ToList();
                 return View(events);
             }
 
-            return View(db.Events.Include(e => e.RestaurantId).ToList());
+            return View(db.Events.Include(e => e.RestaurantId).Where(e => e.Date > DateTime.Now).ToList());
         }
 
         // GET: Events/Details/5
