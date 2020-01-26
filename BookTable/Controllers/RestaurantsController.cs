@@ -87,7 +87,7 @@ namespace BookTable.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Restaurant")]
-        public ActionResult Create([Bind(Include = "RestaurantId,Name,Category,Description")] Restaurant restaurant)
+        public ActionResult Create([Bind(Include = "RestaurantId,Name,Category,Description,Address")] Restaurant restaurant)
         {
             
 
@@ -127,7 +127,7 @@ namespace BookTable.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Restaurant")]
-        public ActionResult Edit([Bind(Include = "RestaurantId,Approved,Name,Category,Description,Rating")] Restaurant restaurant)
+        public ActionResult Edit([Bind(Include = "RestaurantId,OwnerId,Name,Category,Description,Address")] Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {

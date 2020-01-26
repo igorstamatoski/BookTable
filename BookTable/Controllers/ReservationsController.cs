@@ -235,7 +235,10 @@ namespace BookTable.Controllers
             {
                 return HttpNotFound();
             }
-            return View(reservation);
+
+            db.Reservations.Remove(reservation);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: Reservations/Delete/5

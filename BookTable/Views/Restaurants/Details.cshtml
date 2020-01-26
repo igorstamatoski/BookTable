@@ -1,53 +1,77 @@
 ﻿@model BookTable.Models.DatabaseModels.Restaurant
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Settings";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Restaurant</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Approved)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Approved)
-        </dd>
+<div class="row">
+    <div class="col-4">
+        <a class="btn btn-success btn-block mt-2" href="/Events/createEventInRestaurant/@Model.RestaurantId">Add Event</a>
+        <a class="btn btn-primary btn-block mt-2" href="/Tables/tablesForRestaurant/@Model.RestaurantId">My Tables</a>
+        <a class="btn btn-primary btn-block mt-2" href="/Restaurants/Edit/@Model.RestaurantId">Edit</a>
+        <a class="btn btn-primary btn-block mt-2" data-toggle="modal" data-target="#exampleModal" href="/Restaurants/Delete/@Model.RestaurantId">Delete</a>
+        <a class="btn btn-secondary btn-block mt-5" href="/Restaurants/Index">Back</a>
+    </div>
+    <div class="col-6">
+        <h3>Details for: @Model.Name</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Category)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+        </dl>
+    </div>
 
-    <a href='@Url.Action("createEventInRestaurant", "Events", new { id = Model.RestaurantId })'><button class="btn btn-primary">Add Event</button></a>
-    <a href='@Url.Action("tablesForRestaurant", "Tables", new { id=Model.RestaurantId })'><button class="btn btn-primary">My Tables</button>
-    </a>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RestaurantId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Your restaurant wiil be deleted</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Are you sure that you want to delete your restaurant?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-danger" href="/Restaurants/Delete/@Model.RestaurantId">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
