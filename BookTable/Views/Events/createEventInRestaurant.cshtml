@@ -1,9 +1,14 @@
 ﻿@model BookTable.Models.ViewModels.EventInRestaurant
 
 
+@{
+    ViewBag.Title = "Add Event";
+}
+
+
 <h2>Add Event</h2>
 
-@using (Html.BeginForm("createEventInRestaurant","Events",FormMethod.Post))
+@using (Html.BeginForm("createEventInRestaurant", "Events", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 

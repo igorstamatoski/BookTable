@@ -1,5 +1,11 @@
 ﻿@model BookTable.Models.ViewModels.TableInRestaurant
 
+
+@{
+    ViewBag.Title = "Add a table";
+}
+
+
 <h4>Add a table</h4>
 
 @using (Html.BeginForm(FormMethod.Post))
@@ -17,12 +23,12 @@
             </div>
         </div>
         @Html.HiddenFor(model => model.restaurantId)
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="/Tables/tablesForRestaurant/@Model.restaurantId"><button type="button" class="btn btn-secondary">Cancel</button></a>
+            <input type="submit" value="Create" class="btn btn-primary" />
         </div>
-  
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <a href="/Tables/tablesForRestaurant/@Model.restaurantId"><button type="button" class="btn btn-secondary">Cancel</button></a>
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </div>
+    </div>
 }
