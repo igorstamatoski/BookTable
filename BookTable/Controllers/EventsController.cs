@@ -272,7 +272,7 @@ namespace BookTable.Controllers
         }
 
         // GET: Events/Delete/5
-        [Authorize(Roles = "Admin,Restaurant")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -288,7 +288,7 @@ namespace BookTable.Controllers
         }
 
         // POST: Events/Delete/5
-        [Authorize(Roles = "Admin,Restaurant")]
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

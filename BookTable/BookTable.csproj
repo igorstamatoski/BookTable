@@ -227,6 +227,10 @@
     <Compile Include="Migrations\202001272203038_ndnd.Designer.cs">
       <DependentUpon>202001272203038_ndnd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001272316014_newDataannotations.cs" />
+    <Compile Include="Migrations\202001272316014_newDataannotations.Designer.cs">
+      <DependentUpon>202001272316014_newDataannotations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddToRoleModel.cs" />
@@ -474,6 +478,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001272203038_ndnd.resx">
       <DependentUpon>202001272203038_ndnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001272316014_newDataannotations.resx">
+      <DependentUpon>202001272316014_newDataannotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

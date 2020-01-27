@@ -14,8 +14,9 @@ namespace BookTable.Models.DatabaseModels
         public String Name { get; set; }
 
         [Required]
+        [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
-
+        [MaxLength(100)]
         public String Description { get; set; }
         public Restaurant RestaurantId { get; set; }
         [Display(Name="Image")]
