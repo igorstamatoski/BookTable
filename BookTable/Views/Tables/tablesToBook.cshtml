@@ -1,25 +1,56 @@
 ﻿@model BookTable.Models.ViewModels.TablesToBook
+@section head{
+    <style type="text/css">
+        body {
+            background-color: lightgray;
+        }
+    </style>
+    <link href="~/Style/About.css" rel="stylesheet" />
+    @Styles.Render("~/Content/fontawesome")
+}
+<div class="row">
+    <div class="col-4">
 
-<h2>Tables to book</h2>
-
-<h3>Restaurant: @Model.restaurant.Name</h3>
-
-<div class="mt-5">
-    @foreach (var item in Model.tables)
-    {
-        if (item.Avaliable)
+        @if (Model.tables.Count() > 0)
         {
-            using (Html.BeginForm("makeReservation", "Reservations", new { id = item.TableId }, FormMethod.Post, new { style = "display:inline-block" }))
-            {
-                @Html.HiddenFor(model => model.eventId)
-                <button type="submit" class="btn btn-success border-0 rounded-circle " style="width: 100px; height: 100px;">@Html.DisplayFor(modelItem => item.Seats) seats</button>
-            }
+            <h2><span>Tables to book</span></h2>
+
+            <div style="display: inline-block" class="mt-4">
+                <div style="width: 400px; display:inline-block">
+                    @foreach (var item in Model.tables)
+                    {
+                        if (item.Avaliable)
+                        {
+                            using (Html.BeginForm("makeReservation", "Reservations", new { id = item.TableId }, FormMethod.Post, new { style = "display: inline-block;" }))
+                            {
+                                @Html.HiddenFor(model => model.eventId)
+                                <button type="submit" class="btn btn-secondary border-0 rounded-circle mr-2 mb-2" style="width: 100px; height: 100px;"><span style="font-size: 20pt">@item.Seats</span><br />seats</button>
+                            }
+                        }
+                        else
+                        {
+                            <button disabled class="btn btn-secondary border-0 rounded-circle mr-2 mb-2" style="width: 100px; height: 100px;"><span style="font-size: 20pt">@item.Seats</span><br />seats</button>
+                        }
+                    }
+                </div>
+            </div>
         }
         else
         {
-            <button disabled class="btn btn-success border-0 rounded-circle" style="width: 100px; height: 100px">@Html.DisplayFor(modelItem => item.Seats) seats</button>
+            <div style="text-align:center" class="mb-5">
+                <div>
+                    <h4 style="color:gray">There are no tables provided from restaurant!</h4>
+                    <p style="color:gray">Please wait until restaurant provide tables for booking...</p>
+                    <img style="width:90%" src="https://www.stickpng.com/assets/thumbs/584f07ef6a5ae41a83ddee55.png">
+                </div>
+                <a href="/Events/Index"><button class="btn btn-secondary mt-4">Back</button></a>
+            </div>
+
+
+
         }
-
-    }
+    </div>
+    <div class="col-8" style="width:600px; display:inline-block">
+        <img class="img-fluid" src="https://www.adlers-innsbruck.com/fileadmin/_processed_/6/4/csm_restaurant-img-02_d666f4932c.jpg" />
+    </div>
 </div>
-

@@ -113,6 +113,11 @@ namespace BookTable.Controllers
             return View(table);
         }
 
+        public ActionResult emptyTables()
+        {
+            return View();
+        }
+
         // GET: Tables/tablesToBook/EventId
         [Authorize(Roles = "Admin, Restaurant,User")]
         public ActionResult tablesToBook(int? id)
@@ -260,19 +265,57 @@ namespace BookTable.Controllers
         [Authorize(Roles = "Admin, Restaurant")]
         public ActionResult Delete(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
-            var restaurantId = db.Tables.AsNoTracking().Include(d => d.Restaurant).Where(t => t.TableId == id).First().Restaurant.RestaurantId;
-            ViewBag.RestId = restaurantId;
+            Table table = db.Tables.Include(t => t.Restaurant).Where(t => t.TableId == id).First();
+
+            Restaurant rest = db.Restaurants.Where(r => r.RestaurantId == table.Restaurant.RestaurantId).First();
+            ViewBag.R = rest.RestaurantId;
 
             if (table == null)
             {
                 return HttpNotFound();
             }
-            return View(table);
+
+            try
+            {
+                var reservations = db.Reservations.Include(r => r.Table)
+                    .Include(r => r.Event).Where(r => r.Table.TableId == table.TableId).ToList();
+                bool canDelete = true;
+                foreach (Reservation r in reservations)
+                {
+                    if (r.Event.Date > DateTime.Now)
+                    {
+                        canDelete = false;
+                    }
+                }
+
+                if (canDelete)
+                {
+
+                    foreach (Reservation r in reservations)
+                    {
+                        db.Reservations.Remove(db.Reservations.Find(r.ReservationId));
+                    }
+
+                    db.Tables.Remove(table);
+                    db.SaveChanges();
+                    return RedirectToAction("tablesForRestaurant", new { id = rest.RestaurantId });
+                }
+                else
+                {
+                    return View("deleteFailed");
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                return View("deleteFailed"); ;
+            }
         }
 
         // POST: Tables/Delete/5
@@ -287,6 +330,13 @@ namespace BookTable.Controllers
             db.SaveChanges();
             return RedirectToAction("tablesForRestaurant", new { id = restaurantId });
         }
+
+        // GET: Tables/deleteFailed
+        public ActionResult deleteFailed(int? id)
+        {
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {

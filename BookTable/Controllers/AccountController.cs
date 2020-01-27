@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BookTable.Models;
 using BookTable.Database;
+using System.Net;
 
 namespace BookTable.Controllers
 {
@@ -70,6 +71,76 @@ namespace BookTable.Controllers
             model.roles.Add("Restaurant");
             model.roles.Add("User");
             return View(model);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var user = await UserManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: /Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var user = UserManager.FindById(id);
+                var logins = user.Logins;
+                var rolesForUser = await UserManager.GetRolesAsync(id);
+
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    foreach (var login in logins.ToList())
+                    {
+                        await UserManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                    }
+
+                    if (rolesForUser.Count() > 0)
+                    {
+                        foreach (var item in rolesForUser.ToList())
+                        {
+                            // item should be the name of the role
+                            var result = await UserManager.RemoveFromRoleAsync(user.Id, item);
+                        }
+                    }
+
+                    await UserManager.DeleteAsync(user);
+                    transaction.Commit();
+                }
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult getReservations(string userId)
+        {
+
+            if(userId != null)
+            {
+                return View(db.Reservations.Where(r => r.Idto == userId).ToList());
+            }
+            return View(db.Reservations.ToList());
         }
 
         [Authorize(Roles = "Admin")]

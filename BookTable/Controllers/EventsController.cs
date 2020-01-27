@@ -266,7 +266,7 @@ namespace BookTable.Controllers
             {
                 db.Entry(@event).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("editingEvents", "Events");
             }
             return View(@event);
         }

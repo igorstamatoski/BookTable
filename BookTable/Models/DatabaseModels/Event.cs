@@ -17,9 +17,7 @@ namespace BookTable.Models.DatabaseModels
         public DateTime Date { get; set; }
 
         public String Description { get; set; }
-
         public Restaurant RestaurantId { get; set; }
-
         [Display(Name="Image")]
         public String ImageUrl { get; set; }
     }

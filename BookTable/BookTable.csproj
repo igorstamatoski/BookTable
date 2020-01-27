@@ -211,6 +211,22 @@
     <Compile Include="Migrations\202001242357100_changes.Designer.cs">
       <DependentUpon>202001242357100_changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001272150096_data-annotations.cs" />
+    <Compile Include="Migrations\202001272150096_data-annotations.Designer.cs">
+      <DependentUpon>202001272150096_data-annotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001272159369_annotation.cs" />
+    <Compile Include="Migrations\202001272159369_annotation.Designer.cs">
+      <DependentUpon>202001272159369_annotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001272201314_newmigration.cs" />
+    <Compile Include="Migrations\202001272201314_newmigration.Designer.cs">
+      <DependentUpon>202001272201314_newmigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001272203038_ndnd.cs" />
+    <Compile Include="Migrations\202001272203038_ndnd.Designer.cs">
+      <DependentUpon>202001272203038_ndnd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddToRoleModel.cs" />
@@ -427,6 +443,10 @@
     <Content Include="Views\Restaurants\deleteFailed.cshtml" />
     <Content Include="Views\Events\editingEvents.cshtml" />
     <Content Include="Views\Events\pastEvents.cshtml" />
+    <Content Include="Views\Tables\deleteFailed.cshtml" />
+    <Content Include="Views\Tables\emptyTables.cshtml" />
+    <Content Include="Views\Account\Delete.cshtml" />
+    <Content Include="Views\Account\getReservations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -442,6 +462,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001242357100_changes.resx">
       <DependentUpon>202001242357100_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001272150096_data-annotations.resx">
+      <DependentUpon>202001272150096_data-annotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001272159369_annotation.resx">
+      <DependentUpon>202001272159369_annotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001272201314_newmigration.resx">
+      <DependentUpon>202001272201314_newmigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001272203038_ndnd.resx">
+      <DependentUpon>202001272203038_ndnd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

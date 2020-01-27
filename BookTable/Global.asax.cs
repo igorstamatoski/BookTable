@@ -15,6 +15,8 @@ namespace BookTable
     {
         protected void Application_Start()
         {
+           // System.Data.Entity.Database.SetInitializer<BookTableContext>(new DropCreateDatabaseIfModelChanges<BookTableContext>());
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
