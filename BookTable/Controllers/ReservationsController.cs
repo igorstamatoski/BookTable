@@ -71,7 +71,7 @@ namespace BookTable.Controllers
                 {
 
                     Restaurant rest = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
-                    res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).Where(r => r.Idto == user.Id && r.Event.RestaurantId.RestaurantId == rest.RestaurantId).ToList();
+                    res = db.Reservations.Include(r => r.Event).Include(r => r.Table).Include(r => r.Table.Restaurant).Where(r => r.Event.RestaurantId.RestaurantId == rest.RestaurantId).ToList();
                 }
 
                 foreach(Reservation r in res)

@@ -150,6 +150,7 @@ namespace BookTable.Controllers
                     {
                         restaurant = db.Restaurants.Where(r => r.OwnerId == user.Id).First();
                     }
+                    
                 }
 
             }
@@ -158,7 +159,8 @@ namespace BookTable.Controllers
             {
                 if (restaurant == null)
                 {
-                    return View(db.Events.Include(e => e.RestaurantId).ToList());
+                    events = db.Events.Include(e => e.RestaurantId).Where(e => e.RestaurantId.OwnerId == user.Id).ToList();
+                    return View(events);
                 }
                 events = db.Events.Include(e => e.RestaurantId).Where(e => e.RestaurantId.RestaurantId == restaurant.RestaurantId).ToList();
                 return View(events);
